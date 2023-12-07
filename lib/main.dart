@@ -533,6 +533,9 @@ class _MaterialAppWithThemeState extends ConsumerState<MaterialAppWithTheme>
         break;
       case AppLifecycleState.detached:
         break;
+      default:
+        // Handle any other AppLifecycleState values here
+        break;
     }
   }
 
