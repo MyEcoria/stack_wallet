@@ -27,6 +27,7 @@ import 'package:stackwallet/models/isar/exchange_cache/currency.dart';
 import 'package:stackwallet/models/isar/exchange_cache/pair.dart';
 import 'package:stackwallet/networking/http.dart';
 import 'package:stackwallet/services/exchange/change_now/change_now_exchange.dart';
+import 'package:stackwallet/services/exchange/nanswap/nanswap_exchange.dart';
 import 'package:stackwallet/services/exchange/exchange_response.dart';
 import 'package:stackwallet/services/tor_service.dart';
 import 'package:stackwallet/utilities/logger.dart';
@@ -35,9 +36,9 @@ import 'package:tuple/tuple.dart';
 
 class NanswapAPI {
   static const String scheme = "https";
-  static const String authority = "api.changenow.io";
+  static const String authority = "api.nanswap.com";
   static const String apiVersion = "/v1";
-  static const String apiVersionV2 = "/v2";
+  static const String apiVersionV2 = "/v1";
 
   final HTTP client;
 
@@ -242,7 +243,7 @@ class NanswapAPI {
     //   }
     // }
 
-    final uri = _buildUriV2("/exchange/currencies", params);
+    final uri = _buildUriV2("/get-currencies", params);
 
     try {
       // json array is expected here

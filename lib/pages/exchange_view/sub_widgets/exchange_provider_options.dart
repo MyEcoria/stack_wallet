@@ -14,6 +14,7 @@ import 'package:stackwallet/models/exchange/aggregate_currency.dart';
 import 'package:stackwallet/pages/exchange_view/sub_widgets/exchange_provider_option.dart';
 import 'package:stackwallet/providers/providers.dart';
 import 'package:stackwallet/services/exchange/change_now/change_now_exchange.dart';
+import 'package:stackwallet/services/exchange/nanswap/nanswap_exchange.dart';
 import 'package:stackwallet/services/exchange/exchange.dart';
 import 'package:stackwallet/services/exchange/majestic_bank/majestic_bank_exchange.dart';
 import 'package:stackwallet/services/exchange/trocador/trocador_exchange.dart';
@@ -78,6 +79,11 @@ class _ExchangeProviderOptionsState
       sendCurrency: sendCurrency,
       receiveCurrency: receivingCurrency,
     );
+    final showNanswap = exchangeSupported(
+      exchangeName: NanswapExchange.exchangeName,
+      sendCurrency: sendCurrency,
+      receiveCurrency: receivingCurrency,
+    );
     final showMajesticBank = exchangeSupported(
       exchangeName: MajesticBankExchange.exchangeName,
       sendCurrency: sendCurrency,
@@ -102,7 +108,13 @@ class _ExchangeProviderOptionsState
               fixedRate: widget.fixedRate,
               reversed: widget.reversed,
             ),
-          if (showChangeNow && showMajesticBank)
+          if (showNanswap)
+            ExchangeOption(
+              exchange: NanswapExchange.instance,
+              fixedRate: widget.fixedRate,
+              reversed: widget.reversed,
+            ),
+          if (showChangeNow && showMajesticBank || showNanswap && showMajesticBank)
             isDesktop
                 ? Container(
                     height: 1,
@@ -118,7 +130,7 @@ class _ExchangeProviderOptionsState
               fixedRate: widget.fixedRate,
               reversed: widget.reversed,
             ),
-          if ((showChangeNow || showMajesticBank) && showTrocador)
+          if ((showChangeNow || showMajesticBank || showNanswap) && showTrocador)
             isDesktop
                 ? Container(
                     height: 1,

@@ -58,7 +58,7 @@ class _EXCHANGE {
         return majesticBankBlue;
       case TrocadorExchange.exchangeName:
         return trocador;
-      case NanswapExchange.exchangeName;:
+      case NanswapExchange.exchangeName:
         return nanswap;
       default:
         throw ArgumentError("Invalid exchange name passed to "
